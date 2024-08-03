@@ -1,0 +1,170 @@
+Exercise:  1
+Explore pandas library using the following the dataset
+https://drive.google.com/file/d/1Yzw9jJUpbB6ea24RQEoRzceWOgPQHidc/view?usp=drive_link
+● Read and load it onto a DataFrame.
+import pandas as pd
+data=pd.read_csv('/home/22pc07@winserver.amcspsgtech.in/Downloads/data.csv')
+df=pd.DataFrame(data)  
+print(df)
+ 
+● use pandas features such as selecting, filtering, aggregating, joining, slicing/dicing of data to prepare and explore the dataset.
+Slicing:
+import pandas as pd
+data=pd.read_csv('/home/22pc07@winserver.amcspsgtech.in/Downloads/data.csv')
+df=pd.DataFrame(data)  
+df1=df.iloc[0:4,0:2]
+print(df1)
+ 
+Selecting
+import pandas as pd
+data=pd.read_csv('/home/22pc07@winserver.amcspsgtech.in/Downloads/data.csv')
+df=pd.DataFrame(data)  
+selecting=df[["PLAYER NAME","SOLD PRICE"]]
+print(selecting)
+ 
+Aggregating
+import pandas as pd
+data=pd.read_csv('/home/22pc07@winserver.amcspsgtech.in/Downloads/data.csv')
+df=pd.DataFrame(data)  
+agg=df.aggregate(['sum','min'])
+print(agg)
+ 
+Filtering
+import pandas as pd
+data=pd.read_csv("C:\COLLEGE\ML\IPL IMB381IPL2013.csv")
+df=pd.DataFrame(data)  
+filtered_df=df[df['SIXERS']>10]
+print(filtered_df)
+● Displaying First Few Records of the DataFrame
+import pandas as pd
+data=pd.read_csv('/home/22pc07@winserver.amcspsgtech.in/Downloads/data.csv')
+df=pd.DataFrame(data)  
+print(df.head())
+ 
+● Finding Summary of the DataFrame
+import pandas as pd
+data=pd.read_csv("C:\COLLEGE\ML\IPL IMB381IPL2013.csv")
+df=pd.DataFrame(data)  
+print(df.describe())
+ 
+● Slicing and Indexing of DataFrame
+indexing
+import pandas as pd
+data=pd.read_csv("C:\COLLEGE\ML\IPL IMB381IPL2013.csv", index_col="PLAYER NAME")
+first = data[["AGE","AUCTION YEAR","BASE PRICE"]]
+sec = data.loc["Bravo, DJ"]
+third = data.loc[["Gambhir, G","Kohli, V"]]
+fourth = data.loc[["Yuvraj Singh", "Warner, DA"],
+                   ["AGE", "COUNTRY", "TEAM"]]   
+row1=data.iloc[3]
+row2 = data.iloc [[3, 5, 7]]  
+print(first)
+print(sec)
+print("\n")
+print(third)
+print("\n")
+print(fourth)
+print(row1)
+print(row2)
+ 
+Slicing:
+import pandas as pd
+data=pd.read_csv('/home/22pc07@winserver.amcspsgtech.in/Downloads/data.csv')
+df=pd.DataFrame(data)  
+df1=df.iloc[0:4,0:2]
+print(df1)
+ 
+● Find the occurrences of each unique value in a column.
+import pandas as pd
+data=pd.read_csv("C:\COLLEGE\ML\IPL IMB381IPL2013.csv")
+df=pd.DataFrame(data)  
+occurence=df['COUNTRY'].value_counts()
+team_count=df['TEAM'].value_counts()
+print(occurence)
+print(team_count)
+ 
+● Perform cross tabulation between PLAYING ROLE and AGE will give number of players in each age category for each playing role
+import pandas as pd
+data=pd.read_csv("C:\COLLEGE\ML\IPL IMB381IPL2013.csv")
+df=pd.DataFrame(data)  
+cross_tab=pd.crosstab(df['PLAYING ROLE'],df['AGE'])
+print(cross_tab)
+ 
+● Sorting Data Frame by Column Values
+import pandas as pd
+data=pd.read_csv("C:\COLLEGE\ML\IPL IMB381IPL2013.csv")
+df=pd.DataFrame(data)  
+res=df.sort_values(by="SOLD PRICE")  
+res1=df.sort_values(by=["PLAYING ROLE","AUCTION YEAR"])
+res2 =df.sort_values(by="PLAYER NAME", ascending = False)  
+print(res)
+print(res1)
+print(res2)
+ 
+● Find average SOLD PRICE for each age category, group all records by AGE and then apply mean() on SOLD PRICE column
+import pandas as pd
+data=pd.read_csv("C:\COLLEGE\ML\IPL IMB381IPL2013.csv")
+df=pd.DataFrame(data)  
+average=df.groupby('AGE')['SOLD PRICE'].mean()
+print(average)
+ 
+● Perform joining of data frame- compare the average SOLD PRICE for different AGE categories with the different age and PLAYING ROLE categories, we need to merge the DataFrames soldprice_by_age and soldprice_by_ age_role. The common column is AGE and this needs outer join. Age is considered as categorical varaibale(as 1,2,3)
+● To find whether players carry a premium if they belong to a specific AGE and PLAYING ROLE category. The premium (we will call it change) is calculated in percentage terms and calculated as follows
+ 
+● Exploration of data using visualization-Drawing Plots -Matplotlib -Bar Chart, scatter plot Histogram, Correlation and Heatmap.
+Bar Chart
+import pandas as pd
+import matplotlib.pyplot as plt
+data=pd.read_csv("C:\COLLEGE\ML\IPL IMB381IPL2013.csv")
+df=pd.DataFrame(data)  
+plt.bar(df.index, df['TEAM'])
+plt.xlabel('Index')
+plt.ylabel('Team Name')
+plt.title('Bar Chart for the teams')
+plt.show()
+Scatter Plot
+import pandas as pd
+import matplotlib.pyplot as plt
+data=pd.read_csv("C:\COLLEGE\ML\IPL IMB381IPL2013.csv")
+df=pd.DataFrame(data)  
+plt.scatter(df['PLAYING ROLE'],df['T-RUNS'])
+plt.xlabel('playing role')
+plt.ylabel('runs')
+plt.title('Scatter plot of role and runs')
+plt.show()
+ 
+Histogram
+import pandas as pd
+import matplotlib.pyplot as plt
+data=pd.read_csv("C:\COLLEGE\ML\IPL IMB381IPL2013.csv")
+df=pd.DataFrame(data)  
+plt.hist(df['TEAM'])
+plt.xlabel('Teams')
+plt.ylabel('Frequency')
+plt.title('HISTOGRAM')
+plt.show()
+ 
+Correlation
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+data=pd.read_csv("C:\COLLEGE\ML\IPL IMB381IPL2013.csv")
+df=pd.DataFrame(data)  
+numeric_cols = df.select_dtypes(include=[np.number])
+corr_matrix = numeric_cols.corr()
+plt.imshow(corr_matrix, interpolation='nearest')
+plt.title('Correlation Matrix')
+plt.colorbar()
+plt.show()
+ 
+Heatmap
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+data=pd.read_csv("C:\COLLEGE\ML\IPL IMB381IPL2013.csv")
+df=pd.DataFrame(data)  
+numeric_cols = df.select_dtypes(include=[np.number])
+plt.imshow(numeric_cols.corr(), interpolation='nearest')
+plt.title('Heatmap')
+plt.colorbar()
+plt.show()
